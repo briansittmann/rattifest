@@ -1,0 +1,19 @@
+# build
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# env
+.env
+.env.*
+
+# vercel
+.vercel/
+
+# macOS
+.DS_Store
+
+# diseño de referencia de Stitch (local)
+stitch_ratti_fest/
