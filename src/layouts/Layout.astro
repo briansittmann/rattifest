@@ -1,0 +1,45 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e0e10" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <Font cssVariable="--font-space-grotesk" preload />
+    <Font cssVariable="--font-inter" preload />
+    <script is:inline>
+      // Las animaciones de entrada solo se activan si el usuario no pidió
+      // reducir movimiento. Si el script de motion no llega a cargar, se
+      // quita la clase para que el contenido nunca quede oculto.
+      (function () {
+        var root = document.documentElement;
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          root.classList.add("motion-ok");
+          setTimeout(function () {
+            if (!root.classList.contains("motion-ready")) root.classList.remove("motion-ok");
+          }, 3000);
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-background font-body text-body-md text-on-surface antialiased">
+    <slot />
+  </body>
+</html>

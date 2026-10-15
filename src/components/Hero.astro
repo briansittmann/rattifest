@@ -1,0 +1,161 @@
+---
+import { Icon } from "astro-icon/components";
+import { nextEvent } from "../data/site";
+
+const start = new Date(nextEvent.start);
+const dateLabel = start
+  .toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Argentina/Buenos_Aires" })
+  .toUpperCase();
+
+const units = [
+  { id: "days", label: "Días" },
+  { id: "hours", label: "Hrs" },
+  { id: "mins", label: "Min" },
+  { id: "secs", label: "Seg" },
+];
+---
+
+<section
+  id="top"
+  class="relative w-full overflow-hidden bg-surface-container-lowest px-margin-mobile pt-28 pb-space-xl md:px-margin"
+  data-hero
+>
+  <!-- Luces ambientales -->
+  <div
+    class="ambient-a pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-primary-container/10 blur-[140px]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="ambient-b pointer-events-none absolute top-1/3 -right-24 h-[360px] w-[420px] rounded-full bg-secondary-container/20 blur-[120px]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto flex max-w-7xl flex-col">
+    <div class="mb-space-lg flex flex-wrap items-center gap-space-sm" data-hero-item>
+      <div class="inline-flex items-center gap-space-sm rounded-full bg-surface-container-high px-space-sm py-space-xs">
+        <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-container opacity-75 motion-reduce:animate-none"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-primary-container"></span>
+        </span>
+        <span class="font-display text-label-lg uppercase text-primary-container">85% de capacidad agotada</span>
+      </div>
+      <div class="inline-flex items-center gap-space-xs rounded-sm bg-surface-container-low px-space-sm py-space-xs">
+        <Icon name="material-symbols:bolt" class="h-[15px] w-[15px] text-primary" />
+        <span class="font-display text-label-sm uppercase text-on-surface">Preventa Lote 2 Activa</span>
+      </div>
+    </div>
+
+    <div class="mb-space-xl grid grid-cols-1 items-end gap-gutter lg:grid-cols-12">
+      <div class="flex flex-col gap-space-sm lg:col-span-8">
+        <p class="font-display text-label-lg tracking-[0.25em] text-primary-container uppercase" data-hero-item>
+          Buenos Aires Underground Experience
+        </p>
+        <h1 class="font-display text-headline-xl-mobile leading-none text-primary uppercase md:text-headline-xl md:leading-none">
+          <span class="line-mask"><span data-hero-line>Donde la noche</span></span>
+          <span class="line-mask"
+            ><span data-hero-line><span class="text-primary-container">se vuelve</span> leyenda.</span></span
+          >
+        </h1>
+      </div>
+      <div class="flex flex-col gap-space-md lg:col-span-4 lg:pb-2">
+        <p class="text-body-lg text-on-surface-variant" data-hero-item>
+          Fiestas electrónicas, pool parties salvajes y las madrugadas más intensas con Brian Reba, Riplag y las DJs
+          referentes de la vanguardia nacional.
+        </p>
+        <div class="flex items-center gap-space-md" data-hero-item>
+          <div class="flex -space-x-2" aria-hidden="true">
+            <span
+              class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-high font-display text-label-sm text-primary ring-2 ring-background"
+              >BR</span
+            >
+            <span
+              class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-high font-display text-label-sm text-secondary ring-2 ring-background"
+              >RP</span
+            >
+            <span
+              class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary-container font-display text-label-sm font-bold text-on-primary ring-2 ring-background"
+              >+12</span
+            >
+          </div>
+          <span class="text-body-sm tracking-wider text-on-surface-variant uppercase">Comunidad de clubbers activa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="mb-space-xl w-full rounded bg-surface-container-high p-space-lg shadow-xl" data-hero-item>
+      <div class="grid grid-cols-1 items-center gap-gutter md:grid-cols-12">
+        <div class="flex flex-col gap-space-xs md:col-span-6">
+          <span class="flex items-center gap-space-xs font-display text-label-sm tracking-widest text-primary-container uppercase">
+            <Icon name="material-symbols:calendar-today-outline" class="h-[14px] w-[14px]" />
+            Próxima Fecha Confirmada
+          </span>
+          <h2 class="font-display text-headline-sm text-primary uppercase">
+            {nextEvent.title} // {dateLabel}
+          </h2>
+          <p class="text-body-sm text-on-surface-variant">
+            {nextEvent.hours} • {nextEvent.place} • {nextEvent.extra}
+          </p>
+        </div>
+        <div
+          class="flex items-center justify-between gap-space-sm sm:gap-space-md md:col-span-6 md:justify-end"
+          data-countdown={nextEvent.start}
+          role="timer"
+          aria-label={`Cuenta regresiva para ${nextEvent.title}`}
+        >
+          {
+            units.map((u, i) => (
+              <>
+                {i > 0 && (
+                  <span class="font-display text-headline-md text-on-surface-variant/40" aria-hidden="true">
+                    :
+                  </span>
+                )}
+                <div class="flex min-w-[64px] flex-col items-center rounded bg-surface-container-lowest px-space-md py-space-sm">
+                  <span class="block h-[34px] overflow-hidden">
+                    <span
+                      class:list={[
+                        "block font-display text-headline-md font-bold tabular-nums",
+                        u.id === "secs" ? "text-primary-container" : "text-primary",
+                      ]}
+                      data-unit={u.id}
+                    >
+                      00
+                    </span>
+                  </span>
+                  <span
+                    class:list={[
+                      "font-display text-label-sm uppercase",
+                      u.id === "secs" ? "text-primary-container" : "text-on-surface-variant",
+                    ]}
+                  >
+                    {u.label}
+                  </span>
+                </div>
+              </>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-stretch gap-space-md sm:flex-row sm:items-center" data-hero-item>
+      <a
+        class="btn-sheen flex items-center justify-center gap-space-sm rounded bg-primary-container px-space-xl py-space-md font-display text-title-md tracking-wider text-on-primary uppercase shadow-[0_0_28px_rgba(202,243,0,0.3)] transition-[filter,transform] hover:brightness-110 active:scale-[0.98]"
+        href="#ticketeria"
+      >
+        <Icon name="material-symbols:confirmation-number-outline" class="h-5 w-5" />
+        Conseguir Entradas
+      </a>
+      <a
+        class="flex items-center justify-center gap-space-sm rounded border border-white/10 bg-surface-container-high px-space-xl py-space-md font-display text-title-md tracking-wider text-primary uppercase transition-colors hover:border-primary-container/60 hover:bg-surface-bright"
+        href="#proximas-fiestas"
+      >
+        <Icon name="material-symbols:explore-outline" class="h-5 w-5" />
+        Ver Calendario de Fechas
+      </a>
+    </div>
+  </div>
+</section>

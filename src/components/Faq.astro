@@ -1,0 +1,31 @@
+---
+import { Icon } from "astro-icon/components";
+import { faqs } from "../data/site";
+---
+
+<section class="w-full bg-surface-container-lowest px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-4xl flex-col gap-space-xl">
+    <div class="flex flex-col items-center gap-space-xs text-center" data-reveal>
+      <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">Preguntas Frecuentes</span>
+      <h2 class="font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">Todo lo que Necesitás Saber</h2>
+    </div>
+
+    <div class="flex flex-col gap-space-sm" data-stagger>
+      {
+        faqs.map((f) => (
+          <details
+            name="faq"
+            class="faq-item rounded border border-transparent bg-surface-container-low transition-colors duration-300 open:border-white/10 hover:bg-surface-container"
+            data-reveal
+          >
+            <summary class="flex cursor-pointer items-center justify-between gap-space-md p-space-md text-left">
+              <span class="font-display text-title-md text-primary">{f.q}</span>
+              <Icon name="material-symbols:expand-more" class="faq-icon h-5 w-5 shrink-0 text-on-surface-variant" />
+            </summary>
+            <p class="px-space-md pb-space-md text-body-md text-on-surface-variant">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

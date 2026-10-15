@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { gallery } from "../data/site";
+---
+
+<section id="galeria" class="w-full bg-surface-container-lowest px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-7xl flex-col gap-space-xl">
+    <div class="flex flex-col gap-space-xs" data-reveal>
+      <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">Galería &amp; Atmósfera</span>
+      <h2 class="font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">
+        La Energía que no se Puede Explicar
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-space-md sm:grid-cols-2 lg:grid-cols-4" data-gallery>
+      {
+        gallery.map((g) => (
+          <figure class="group relative h-80 overflow-hidden rounded" data-reveal-clip>
+            <div class="absolute inset-0 scale-[1.2]" data-parallax>
+              <Image
+                src={g.image}
+                alt={g.alt}
+                widths={[480, 800]}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
+            <figcaption class="absolute inset-0 flex items-end bg-linear-to-t from-surface-container-lowest/80 via-transparent to-transparent p-space-md">
+              <span class="font-display text-label-sm text-primary uppercase">{g.caption}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div
+      class="flex w-full flex-col items-center justify-between gap-space-lg rounded bg-surface-container-low p-space-lg md:flex-row md:p-space-xl"
+      data-reveal
+    >
+      <blockquote class="flex max-w-2xl flex-col gap-space-xs">
+        <Icon name="material-symbols:format-quote" class="h-9 w-9 text-primary-container" />
+        <p class="font-display text-headline-sm text-primary italic">
+          “La energía de Ratti Fest es completamente inexplicable. No existe otra fiesta donde la producción, el sonido y
+          la vibra de la gente se sincronicen de esta forma.”
+        </p>
+        <footer class="mt-space-sm font-display text-label-lg text-on-surface-variant uppercase">
+          Reseña de la comunidad Ratti // Edición Marzo 2026
+        </footer>
+      </blockquote>
+      <div class="flex flex-col items-center gap-space-xs md:items-end">
+        <div class="flex items-center gap-1 text-primary-container" aria-hidden="true" data-stars>
+          {Array.from({ length: 5 }).map(() => <Icon name="material-symbols:star" class="h-5 w-5" />)}
+        </div>
+        <span class="font-display text-headline-sm font-bold text-primary tabular-nums">
+          <span data-count-to="4.9" data-decimals="1">4.9</span> / 5.0
+        </span>
+        <span class="text-body-sm text-on-surface-variant">
+          +<span data-count-to="4500" data-decimals="0">4.500</span> tickets vendidos en 2026
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { djs } from "../data/site";
+
+const accentText = { lime: "text-primary-container", violet: "text-secondary", white: "text-primary" };
+---
+
+<section id="lineup" class="w-full bg-background px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-7xl flex-col gap-space-xl">
+    <div class="flex flex-col justify-between gap-space-md md:flex-row md:items-end" data-reveal>
+      <div>
+        <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">Capitanes de Cabina</span>
+        <h2 class="mt-space-xs font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">
+          Lineup DJs Residentes &amp; Invitadas
+        </h2>
+      </div>
+      <p class="max-w-sm text-body-md text-on-surface-variant">
+        Selección musical implacable donde el groove percusivo y los bajos demoledores comandan cada set de principio a
+        fin.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-gutter md:grid-cols-12">
+      {
+        djs.map((dj) => (
+          <article
+            class:list={[
+              "spotlight flex flex-col overflow-hidden rounded bg-surface-container-low md:col-span-6",
+              dj.accent === "violet" && "spotlight-violet",
+            ]}
+            data-reveal
+          >
+            <div class="group relative h-80 w-full overflow-hidden" data-reveal-clip>
+              <div class="absolute inset-0 scale-[1.2]" data-parallax>
+                <Image
+                  src={dj.image}
+                  alt={dj.alt}
+                  widths={[640, 1000, 1400]}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
+              <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-surface-container-low to-transparent" />
+              <div class="absolute top-space-md left-space-md rounded bg-surface-container-lowest/80 px-space-sm py-space-xs backdrop-blur-md">
+                <span class:list={["font-display text-label-sm font-bold tracking-wider uppercase", accentText[dj.accent]]}>
+                  Resident DJ
+                </span>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col justify-between gap-space-md p-space-lg">
+              <div>
+                <span class="font-display text-label-sm tracking-widest text-on-surface-variant uppercase">{dj.style}</span>
+                <h3 class="mt-space-xs font-display text-headline-md text-primary uppercase">{dj.name}</h3>
+                <p class="mt-space-sm text-body-md text-on-surface-variant">{dj.bio}</p>
+              </div>
+              <div class="flex items-center justify-between pt-space-md">
+                <span class:list={["flex items-center gap-space-xs text-body-sm font-bold uppercase", accentText[dj.accent]]}>
+                  <Icon name="material-symbols:play-circle-outline" class="h-4 w-4" />
+                  Set Preview Disponible
+                </span>
+                <div class="flex items-center gap-space-xs font-display text-label-sm text-on-surface-variant">
+                  <span>{dj.genres[0]}</span>
+                  <span>/</span>
+                  <span>{dj.genres[1]}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+
+      <div
+        class="flex flex-col items-center justify-between gap-space-md rounded bg-surface-container p-space-lg md:col-span-12 md:flex-row"
+        data-reveal
+      >
+        <div class="flex items-center gap-space-md">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-primary-container text-on-primary">
+            <Icon name="material-symbols:female" class="h-6 w-6" />
+          </div>
+          <div>
+            <h4 class="font-display text-title-md text-primary uppercase">Talento Femenino de Vanguardia</h4>
+            <p class="text-body-sm text-on-surface-variant">
+              Cada edición suma a las mejores productoras y DJs emergentes de la escena nacional: sets frescos, ritmo
+              implacable y presencia escénica arrolladora.
+            </p>
+          </div>
+        </div>
+        <span class="font-display text-label-lg tracking-wider whitespace-nowrap text-primary-container uppercase">
+          Lineup Rotativo Exclusivo
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

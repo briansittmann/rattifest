@@ -1,0 +1,145 @@
+---
+import { Icon } from "astro-icon/components";
+import { tickets, guarantees, whatsappMesa } from "../data/site";
+---
+
+<section id="ticketeria" class="w-full bg-background px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-7xl flex-col gap-space-xl">
+    <div class="flex flex-col justify-between gap-space-md md:flex-row md:items-end" data-reveal>
+      <div>
+        <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">Puntos de Venta Oficial</span>
+        <h2 class="mt-space-xs font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">
+          Asegurá tu Pase // Lote 2
+        </h2>
+      </div>
+      <div class="flex items-center gap-space-sm rounded bg-surface-container-low px-space-md py-space-sm">
+        <Icon name="material-symbols:verified-user-outline" class="h-4 w-4 text-primary-container" />
+        <span class="text-body-sm text-on-surface">Transacción 100% Encriptada y Segura</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 items-stretch gap-gutter pt-space-sm lg:grid-cols-3" data-stagger>
+      {
+        tickets.map((t) => {
+          const featured = t.id === "vip";
+          const mesa = t.id === "mesa";
+          const check = mesa ? "text-secondary" : "text-primary-container";
+          return (
+            <div
+              class:list={[
+                "flex flex-col justify-between gap-space-lg rounded p-space-lg transition-[background-color,transform] duration-300",
+                featured
+                  ? "featured-ring bg-surface-container shadow-2xl"
+                  : "spotlight bg-surface-container-low hover:bg-surface-container",
+                mesa && "spotlight-violet",
+              ]}
+              data-reveal
+            >
+              {featured && (
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded bg-primary-container px-space-md py-1 font-display text-label-sm font-bold tracking-widest whitespace-nowrap text-on-primary uppercase shadow-md">
+                  Más elegido // Recomendado
+                </div>
+              )}
+              <div class:list={["flex flex-col gap-space-md", featured && "mt-space-xs"]}>
+                <div class="flex items-center justify-between">
+                  <span
+                    class:list={[
+                      "font-display text-label-sm tracking-wider uppercase",
+                      featured ? "text-primary-container" : mesa ? "text-secondary" : "text-on-surface-variant",
+                    ]}
+                  >
+                    {t.kicker}
+                  </span>
+                  <span
+                    class:list={[
+                      "rounded px-space-xs py-0.5 font-display text-label-sm",
+                      featured
+                        ? "bg-primary-container/20 text-primary-container"
+                        : mesa
+                          ? "bg-secondary-container/30 text-secondary"
+                          : "bg-surface-container text-on-surface",
+                    ]}
+                  >
+                    {t.badge}
+                  </span>
+                </div>
+                <div>
+                  <h3 class="font-display text-headline-sm text-primary uppercase">{t.name}</h3>
+                  <div class="mt-space-xs flex items-baseline gap-space-xs">
+                    <span
+                      class:list={[
+                        "font-display text-headline-lg-mobile font-bold md:text-headline-lg",
+                        featured ? "text-primary-container" : "text-primary",
+                      ]}
+                    >
+                      {t.price}
+                    </span>
+                    <span class="text-body-sm text-on-surface-variant">ARS</span>
+                  </div>
+                </div>
+                <ul class="flex flex-col gap-space-sm pt-space-sm text-body-sm">
+                  {t.perks.map((p) => (
+                    <li class:list={["flex items-start gap-space-xs", p.ok ? "text-on-surface" : "text-on-surface-variant"]}>
+                      <Icon
+                        name={p.ok ? "material-symbols:check-circle-outline" : "material-symbols:close"}
+                        class:list={["mt-px h-4 w-4 shrink-0", p.ok && check]}
+                      />
+                      {p.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="flex flex-col gap-space-sm pt-space-md">
+                {mesa ? (
+                  <a
+                    class="flex w-full items-center justify-center gap-space-xs rounded bg-surface-container-high py-space-md font-display text-title-md text-primary uppercase transition-[background-color,transform] hover:bg-surface-bright active:scale-[0.98]"
+                    href={whatsappMesa}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <Icon name="material-symbols:chat-outline" class="h-[18px] w-[18px]" />
+                    {t.cta}
+                  </a>
+                ) : (
+                  <button
+                    class:list={[
+                      "w-full cursor-pointer rounded py-space-md font-display text-title-md uppercase transition-[filter,transform,background-color] active:scale-[0.98]",
+                      featured
+                        ? "btn-sheen bg-primary-container font-bold text-on-primary shadow-[0_0_24px_rgba(202,243,0,0.3)] hover:brightness-110"
+                        : "bg-surface-container-high text-primary hover:bg-surface-bright",
+                    ]}
+                    type="button"
+                  >
+                    {t.cta}
+                  </button>
+                )}
+                <span
+                  class:list={[
+                    "text-center font-display text-label-sm uppercase",
+                    featured ? "text-primary-container" : "text-on-surface-variant",
+                  ]}
+                >
+                  {t.note}
+                </span>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="grid grid-cols-1 gap-gutter pt-space-md sm:grid-cols-3" data-stagger>
+      {
+        guarantees.map((g) => (
+          <div class="flex items-center gap-space-md rounded bg-surface-container-low p-space-md" data-reveal>
+            <Icon name={g.icon} class="h-6 w-6 shrink-0 text-primary-container" />
+            <div class="flex flex-col">
+              <span class="font-display text-title-md text-primary">{g.title}</span>
+              <span class="text-body-sm text-on-surface-variant">{g.text}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

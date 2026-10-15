@@ -1,0 +1,34 @@
+---
+import { nextEvent } from "../data/site";
+
+const month = new Date(nextEvent.start).toLocaleDateString("es-AR", {
+  month: "long",
+  timeZone: "America/Argentina/Buenos_Aires",
+});
+---
+
+<section class="relative w-full overflow-hidden bg-surface-container px-margin-mobile py-space-xl md:px-margin">
+  <div
+    class="pointer-events-none absolute -bottom-40 left-1/4 h-[320px] w-[640px] rounded-full bg-primary-container/10 blur-[120px]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-space-lg text-center md:flex-row md:text-left"
+    data-reveal
+  >
+    <div>
+      <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">Últimos Cupos Disponibles</span>
+      <h3 class="mt-space-xs font-display text-headline-md text-primary uppercase">Viví la verdadera fiesta electrónica</h3>
+      <p class="text-body-md text-on-surface-variant">
+        No te quedes afuera de la fecha más esperada de {month} en Zona Norte.
+      </p>
+    </div>
+    <a
+      class="btn-sheen rounded bg-primary-container px-space-xl py-space-md font-display text-title-md whitespace-nowrap text-on-primary uppercase shadow-[0_0_24px_rgba(202,243,0,0.3)] transition-[filter,transform] hover:brightness-110 active:scale-95"
+      href="#ticketeria"
+    >
+      Conseguir Entradas
+    </a>
+  </div>
+</section>

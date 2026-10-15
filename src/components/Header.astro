@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import logoMark from "../assets/img/logo-mark.png";
+import { nav } from "../data/site";
+---
+
+<header
+  class="site-header fixed top-0 left-0 z-50 w-full border-b border-transparent bg-surface-container-lowest/80 backdrop-blur-xl"
+  data-header
+>
+  <div class="flex h-20 w-full items-center justify-between gap-gutter px-margin-mobile md:px-margin">
+    <a href="#top" class="flex items-center gap-space-md" aria-label="Ratti Fest, ir al inicio">
+      <Image src={logoMark} alt="" width={32} height={32} class="h-8 w-8" loading="eager" />
+      <span class="font-display text-headline-sm uppercase tracking-wider text-primary">Ratti Fest</span>
+    </a>
+
+    <nav class="hidden items-center gap-space-lg xl:flex" aria-label="Principal">
+      {
+        nav.map((item) => (
+          <a
+            class="link-underline px-space-sm py-space-xs font-display text-title-md text-on-surface-variant hover:text-on-surface"
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-space-sm">
+      <a
+        class="btn-sheen hidden items-center justify-center rounded bg-primary-container px-space-lg py-space-sm font-display text-title-md uppercase text-on-primary shadow-[0_0_24px_rgba(202,243,0,0.25)] transition-[filter,transform] hover:brightness-110 active:scale-95 sm:flex"
+        href="#ticketeria"
+      >
+        Conseguir Entradas
+      </a>
+      <button
+        type="button"
+        popovertarget="mobile-menu"
+        class="flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white/10 text-primary xl:hidden"
+        aria-label="Abrir menú"
+      >
+        <Icon name="material-symbols:menu" class="h-6 w-6" />
+      </button>
+    </div>
+  </div>
+  <div class="scroll-progress absolute inset-x-0 bottom-0 h-px bg-primary-container" aria-hidden="true"></div>
+</header>
+
+<div
+  id="mobile-menu"
+  popover
+  class="mobile-menu flex-col gap-space-xl border-l border-white/10 bg-surface-container-lowest p-space-lg text-on-surface [&:popover-open]:flex"
+>
+  <div class="flex items-center justify-between">
+    <span class="font-display text-headline-sm uppercase tracking-wider text-primary">Ratti Fest</span>
+    <button
+      type="button"
+      popovertarget="mobile-menu"
+      popovertargetaction="hide"
+      class="flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white/10"
+      aria-label="Cerrar menú"
+    >
+      <Icon name="material-symbols:close" class="h-6 w-6" />
+    </button>
+  </div>
+  <nav class="flex flex-col gap-space-xs" aria-label="Principal (mobile)">
+    {
+      nav.map((item) => (
+        <a
+          class="rounded px-space-sm py-space-md font-display text-headline-sm uppercase text-on-surface transition-colors hover:bg-surface-container-high"
+          href={item.href}
+          data-close-menu
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+  <a
+    class="mt-auto flex items-center justify-center rounded bg-primary-container px-space-lg py-space-md font-display text-title-md uppercase text-on-primary"
+    href="#ticketeria"
+    data-close-menu
+  >
+    Conseguir Entradas
+  </a>
+</div>

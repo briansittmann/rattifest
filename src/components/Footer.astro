@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import logoMark from "../assets/img/logo-mark.png";
+import { socials } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="w-full bg-surface-container-lowest pt-space-xl pb-space-lg">
+  <div class="w-full px-margin-mobile md:px-margin">
+    <div class="grid grid-cols-1 gap-gutter pb-space-xl md:grid-cols-12">
+      <div class="flex flex-col gap-space-md md:col-span-5">
+        <div class="flex items-center gap-space-sm">
+          <Image src={logoMark} alt="" width={24} height={24} class="h-6 w-6" />
+          <span class="font-display text-headline-sm text-primary uppercase">Ratti Fest</span>
+        </div>
+        <p class="max-w-md text-body-md text-on-surface-variant">
+          Experiencias sonoras de vanguardia, formatos inmersivos al aire libre y cultura clubbing de alto calibre.
+        </p>
+        <div class="mt-space-xs flex items-center gap-space-sm">
+          <span class="inline-flex items-center justify-center rounded bg-surface-container-high px-space-sm py-space-xs font-display text-label-lg text-primary">+18</span>
+          <span class="text-body-sm tracking-wider text-on-surface-variant uppercase">Estricto Control de Acceso</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-sm md:col-span-4">
+        <span class="font-display text-label-lg tracking-wider text-primary uppercase">Ubicaciones Secretas</span>
+        <p class="text-body-sm text-on-surface-variant">
+          Suscribite para recibir coordenadas GPS de cada locación secreta 2 horas antes de cada evento.
+        </p>
+        <!-- TODO: conectar a un servicio de newsletter real -->
+        <form class="flex flex-col gap-space-xs pt-space-xs sm:flex-row" onsubmit="return false;">
+          <label for="newsletter-email" class="sr-only">Tu email</label>
+          <input
+            id="newsletter-email"
+            class="flex-1 rounded border border-white/10 bg-surface-container-low px-space-md py-space-sm text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary-container focus:outline-none"
+            placeholder="radar@rattifest.com"
+            type="email"
+            autocomplete="email"
+          />
+          <button
+            class="cursor-pointer rounded bg-surface-container-high px-space-md py-space-sm font-display text-title-md tracking-wider text-on-surface uppercase transition-colors hover:bg-surface-bright"
+            type="submit"
+          >
+            Conectar
+          </button>
+        </form>
+      </div>
+
+      <div class="flex flex-col gap-space-md md:col-span-3 md:items-end">
+        <span class="font-display text-label-lg tracking-wider text-primary uppercase">Transmisión &amp; Canales</span>
+        <div class="flex flex-col items-start gap-space-xs text-body-sm text-on-surface-variant md:items-end">
+          {socials.map((s) => <a class="link-underline hover:text-primary" href={s.href}>{s.label}</a>)}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-between gap-space-md border-t border-white/5 pt-space-lg sm:flex-row">
+      <span class="text-body-sm text-on-surface-variant">© {year} RATTI FEST. Reservados todos los derechos.</span>
+      <div class="flex flex-wrap items-center justify-center gap-space-lg text-body-sm text-on-surface-variant">
+        <a class="link-underline hover:text-on-surface" href="#">Términos y Condiciones</a>
+        <a class="link-underline hover:text-on-surface" href="#">Política de Privacidad</a>
+        <a class="link-underline hover:text-on-surface" href="#">Políticas de Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>

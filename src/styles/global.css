@@ -1,0 +1,362 @@
+@import "tailwindcss";
+
+/* Tokens del diseño de Stitch ("Obsidian Signal"). Ver stitch_ratti_fest/DESIGN.md */
+@theme {
+  --color-background: #131315;
+  --color-surface-container-lowest: #0e0e10;
+  --color-surface-container-low: #1c1b1d;
+  --color-surface-container: #201f22;
+  --color-surface-container-high: #2a2a2c;
+  --color-surface-container-highest: #353437;
+  --color-surface-bright: #39393b;
+  --color-on-surface: #e5e1e4;
+  --color-on-surface-variant: #c5c9ac;
+  --color-outline-variant: #444932;
+  --color-primary: #ffffff;
+  --color-primary-container: #caf300;
+  --color-on-primary: #2a3400;
+  --color-secondary: #ddb7ff;
+  --color-secondary-container: #6f00be;
+
+  --text-headline-xl: 64px;
+  --text-headline-xl--line-height: 72px;
+  --text-headline-xl--letter-spacing: -0.04em;
+  --text-headline-xl--font-weight: 700;
+  --text-headline-xl-mobile: 38px;
+  --text-headline-xl-mobile--line-height: 44px;
+  --text-headline-xl-mobile--letter-spacing: -0.03em;
+  --text-headline-xl-mobile--font-weight: 700;
+  --text-headline-lg: 44px;
+  --text-headline-lg--line-height: 52px;
+  --text-headline-lg--letter-spacing: -0.03em;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-lg-mobile: 30px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--letter-spacing: -0.02em;
+  --text-headline-lg-mobile--font-weight: 600;
+  --text-headline-md: 28px;
+  --text-headline-md--line-height: 34px;
+  --text-headline-md--letter-spacing: -0.02em;
+  --text-headline-md--font-weight: 600;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 26px;
+  --text-headline-sm--letter-spacing: -0.01em;
+  --text-headline-sm--font-weight: 600;
+  --text-title-md: 16px;
+  --text-title-md--line-height: 22px;
+  --text-title-md--letter-spacing: 0.02em;
+  --text-title-md--font-weight: 500;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 26px;
+  --text-body-lg--letter-spacing: -0.01em;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22px;
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 18px;
+  --text-body-sm--letter-spacing: 0.01em;
+  --text-label-lg: 12px;
+  --text-label-lg--line-height: 16px;
+  --text-label-lg--letter-spacing: 0.12em;
+  --text-label-lg--font-weight: 700;
+  --text-label-sm: 10px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.15em;
+  --text-label-sm--font-weight: 600;
+
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Las variables las define <Font /> de Astro en el <head>. */
+@theme inline {
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Animaciones
+   Todo lo que arranca oculto depende de html.motion-ok, que solo se agrega
+   si el usuario no pidió reducir movimiento (ver Layout.astro).
+   ------------------------------------------------------------------------- */
+
+html.motion-ok [data-reveal],
+html.motion-ok [data-hero-item] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+html.motion-ok [data-reveal-clip] {
+  clip-path: inset(100% 0 0 0);
+}
+
+/* Titular del hero: cada línea sube desde atrás de una máscara */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.line-mask > span {
+  display: inline-block;
+}
+html.motion-ok .line-mask > span {
+  transform: translateY(110%);
+}
+
+/* Luces ambientales del hero: deriva lenta, como humo de pista */
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-a {
+    animation: drift-a 18s ease-in-out infinite alternate;
+  }
+  .ambient-b {
+    animation: drift-b 22s ease-in-out infinite alternate;
+  }
+}
+@keyframes drift-a {
+  to {
+    transform: translate(120px, 60px) scale(1.15);
+  }
+}
+@keyframes drift-b {
+  to {
+    transform: translate(-140px, -40px) scale(0.9);
+  }
+}
+
+/* Barra de progreso de lectura en el header (scroll-driven, sin JS) */
+.scroll-progress {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Header: se vuelve más sólido al salir del hero */
+.site-header {
+  transition:
+    background-color 0.4s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo);
+}
+.site-header[data-scrolled] {
+  background-color: rgb(14 14 16 / 0.92);
+  border-color: rgb(255 255 255 / 0.08);
+}
+
+/* Links fantasma: subrayado que crece de 0 a 100% (DESIGN.md, Tertiary) */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.35s var(--ease-out-expo),
+    color 0.2s;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* CTA primario: destello que barre el botón al hacer hover */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-sheen:hover::after {
+    transition: transform 0.7s var(--ease-out-expo);
+    transform: translateX(120%);
+  }
+}
+
+/* Tarjetas con "spotlight": el borde y el fondo se iluminan bajo el cursor.
+   --mx / --my los actualiza src/scripts/motion.ts */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before,
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+.spotlight::before {
+  z-index: -1;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--spot, 202 243 0) / 0.08),
+    transparent 60%
+  );
+}
+.spotlight::after {
+  padding: 1px;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--spot, 202 243 0) / 0.55),
+    transparent 70%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.spotlight:hover::before,
+.spotlight:hover::after {
+  opacity: 1;
+}
+.spotlight-violet {
+  --spot: 168 85 247;
+}
+
+/* Pase destacado: borde luminoso que gira (jerarquía: "más elegido") */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.featured-ring {
+  position: relative;
+  isolation: isolate;
+}
+.featured-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle),
+    rgb(202 243 0 / 0.9),
+    rgb(202 243 0 / 0.05) 25%,
+    rgb(168 85 247 / 0.6) 50%,
+    rgb(202 243 0 / 0.05) 75%,
+    rgb(202 243 0 / 0.9)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .featured-ring::before {
+    animation: spin-angle 6s linear infinite;
+  }
+}
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* FAQ con <details>: abre con altura animada donde el navegador lo soporta */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+.faq-item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.45s var(--ease-out-expo),
+    content-visibility 0.45s allow-discrete;
+}
+.faq-item[open]::details-content {
+  block-size: auto;
+}
+.faq-item summary {
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item .faq-icon {
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.faq-item[open] .faq-icon {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item::details-content {
+    transition: none;
+  }
+}
+
+/* Menú mobile (popover nativo) */
+.mobile-menu {
+  inset: 0 0 auto auto;
+  height: 100dvh;
+  width: min(22rem, 100vw);
+  margin: 0;
+  transform: translateX(100%);
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    overlay 0.45s allow-discrete,
+    display 0.45s allow-discrete;
+}
+.mobile-menu:popover-open {
+  transform: translateX(0);
+}
+@starting-style {
+  .mobile-menu:popover-open {
+    transform: translateX(100%);
+  }
+}
+.mobile-menu::backdrop {
+  background: rgb(9 9 11 / 0.6);
+  backdrop-filter: blur(4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu {
+    transition: none;
+  }
+}

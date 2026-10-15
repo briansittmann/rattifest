@@ -1,0 +1,110 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { events } from "../data/site";
+
+const dateColor = { lime: "text-primary-container", violet: "text-secondary", white: "text-primary" };
+const tagColor = {
+  lime: "bg-primary-container/20 text-primary-container",
+  violet: "bg-secondary-container/30 text-secondary",
+  white: "bg-surface-container-high text-primary",
+};
+const iconColor = { lime: "text-primary-container", violet: "text-secondary", white: "text-primary-container" };
+---
+
+<section id="proximas-fiestas" class="w-full bg-background px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-7xl flex-col gap-space-xl">
+    <div class="flex flex-col justify-between gap-space-md md:flex-row md:items-end" data-reveal>
+      <div>
+        <span class="font-display text-label-lg tracking-widest text-primary-container uppercase">
+          Temporada 2026 // Tour Secret Sessions
+        </span>
+        <h2 class="mt-space-xs font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">
+          Próximas Fiestas Confirmadas
+        </h2>
+      </div>
+      <p class="max-w-sm text-body-md text-on-surface-variant">
+        Acceso estrictamente exclusivo con DNI físico +18. Capacidad estrictamente limitada para resguardar la vibra
+        del club.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-space-lg" data-stagger>
+      {
+        events.map((ev) => (
+          <article
+            class:list={[
+              "spotlight rounded bg-surface-container-low p-space-lg transition-colors duration-300 hover:bg-surface-container",
+              ev.accent === "violet" && "spotlight-violet",
+            ]}
+            data-reveal
+          >
+            <div class="grid grid-cols-1 items-center gap-gutter lg:grid-cols-12">
+              <div class="group relative h-48 min-h-[160px] overflow-hidden rounded lg:col-span-3 lg:h-full">
+                <div class="absolute inset-0 scale-[1.18]" data-parallax>
+                  <Image
+                    src={ev.image}
+                    alt={ev.alt}
+                    widths={[480, 800]}
+                    sizes="(min-width: 1024px) 300px, 100vw"
+                    class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div class="absolute top-space-sm left-space-sm rounded bg-surface-container-lowest/90 px-space-sm py-space-xs backdrop-blur-md">
+                  <span class:list={["font-display text-label-sm tracking-wider uppercase", dateColor[ev.accent]]}>
+                    {ev.date}
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-space-sm lg:col-span-6">
+                <div class="flex flex-wrap items-center gap-space-xs">
+                  <span class:list={["rounded px-space-xs py-0.5 font-display text-label-sm uppercase", tagColor[ev.accent]]}>
+                    {ev.tag}
+                  </span>
+                  <span class="font-display text-label-sm text-on-surface-variant">• {ev.hours}</span>
+                </div>
+                <h3 class="font-display text-headline-sm text-primary uppercase">{ev.title}</h3>
+                <p class="text-body-md text-on-surface-variant">{ev.description}</p>
+                <div class="flex items-center gap-space-sm pt-space-xs">
+                  <Icon name="material-symbols:graphic-eq" class:list={["h-[18px] w-[18px] shrink-0", iconColor[ev.accent]]} />
+                  <span class="font-display text-title-md text-primary">{ev.lineup}</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col items-start justify-between gap-space-md lg:col-span-3 lg:items-end lg:pl-space-md">
+                <div class="flex flex-col lg:items-end">
+                  <span class="font-display text-label-sm tracking-wider text-on-surface-variant uppercase">{ev.priceLabel}</span>
+                  <span class="font-display text-headline-md font-bold text-primary">{ev.price}</span>
+                  <span
+                    class:list={[
+                      "font-display text-label-sm uppercase",
+                      ev.primary ? "text-primary-container" : "text-on-surface-variant",
+                    ]}
+                  >
+                    {ev.stock}
+                  </span>
+                </div>
+                <a
+                  class:list={[
+                    "group/cta flex w-full items-center justify-center gap-space-xs rounded px-space-lg py-space-sm font-display text-title-md uppercase transition-[filter,transform,background-color] sm:w-auto",
+                    ev.primary
+                      ? "btn-sheen bg-primary-container text-on-primary shadow-[0_0_20px_rgba(202,243,0,0.25)] hover:brightness-110 active:scale-95"
+                      : "bg-surface-container-high text-primary hover:bg-surface-bright active:scale-95",
+                  ]}
+                  href="#ticketeria"
+                >
+                  Comprar Entrada
+                  <Icon
+                    name="material-symbols:arrow-forward"
+                    class="h-[18px] w-[18px] transition-transform duration-300 group-hover/cta:translate-x-1"
+                  />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

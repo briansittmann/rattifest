@@ -1,0 +1,56 @@
+---
+import { Icon } from "astro-icon/components";
+import { formats } from "../data/site";
+
+const iconBox = {
+  lime: "bg-primary-container/20 text-primary-container",
+  violet: "bg-secondary-container/30 text-secondary",
+  white: "bg-surface-container-high text-primary",
+};
+const kickerColor = { lime: "text-primary-container", violet: "text-secondary", white: "text-on-surface" };
+---
+
+<section id="formatos" class="w-full bg-surface-container-lowest px-margin-mobile py-space-xl md:px-margin md:py-20">
+  <div class="mx-auto flex max-w-7xl flex-col gap-space-xl">
+    <div class="flex flex-col gap-space-xs" data-reveal>
+      <span class="font-display text-label-lg tracking-widest text-on-surface-variant uppercase">El ADN de Ratti</span>
+      <h2 class="font-display text-headline-lg-mobile text-primary uppercase md:text-headline-lg">
+        Formatos Diseñados para Explotar
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-gutter md:grid-cols-3" data-stagger>
+      {
+        formats.map((f) => (
+          <div
+            class:list={[
+              "spotlight flex flex-col justify-between gap-space-lg rounded bg-surface-container-low p-space-lg transition-colors duration-300 hover:bg-surface-container",
+              f.accent === "violet" && "spotlight-violet",
+            ]}
+            data-reveal
+          >
+            <div class="flex flex-col gap-space-md">
+              <div class:list={["flex h-12 w-12 items-center justify-center rounded", iconBox[f.accent]]}>
+                <Icon name={f.icon} class="h-7 w-7" />
+              </div>
+              <div>
+                <span class:list={["font-display text-label-sm tracking-widest uppercase", kickerColor[f.accent]]}>
+                  {f.kicker}
+                </span>
+                <h3 class="mt-space-xs font-display text-headline-sm text-primary uppercase">{f.title}</h3>
+              </div>
+              <p class="text-body-md text-on-surface-variant">{f.description}</p>
+            </div>
+            <div class="flex flex-wrap gap-space-xs pt-space-md">
+              {f.chips.map((c) => (
+                <span class="rounded bg-surface-container-high px-space-sm py-space-xs font-display text-label-sm text-on-surface">
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

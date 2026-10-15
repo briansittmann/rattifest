@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Events from "../components/Events.astro";
+import Formats from "../components/Formats.astro";
+import Lineup from "../components/Lineup.astro";
+import Gallery from "../components/Gallery.astro";
+import Tickets from "../components/Tickets.astro";
+import Faq from "../components/Faq.astro";
+import CtaStrip from "../components/CtaStrip.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Ratti Fest | Fiestas electrónicas y pool parties en Buenos Aires"
+  description="Pool parties, warehouse techno y rooftop sessions con Brian Reba, Riplag y DJs invitadas. Comprá tus entradas para la próxima fecha de Ratti Fest."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Events />
+    <Formats />
+    <Lineup />
+    <Gallery />
+    <Tickets />
+    <Faq />
+    <CtaStrip />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import "../scripts/motion.ts";
+</script>
