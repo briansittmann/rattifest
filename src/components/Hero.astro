@@ -100,7 +100,7 @@ const units = [
           </p>
         </div>
         <div
-          class="flex items-center justify-between gap-space-sm sm:gap-space-md md:col-span-6 md:justify-end"
+          class="flex items-center justify-between gap-space-xs sm:gap-space-md md:col-span-6 md:justify-end"
           data-countdown={nextEvent.start}
           role="timer"
           aria-label={`Cuenta regresiva para ${nextEvent.title}`}
@@ -109,11 +109,11 @@ const units = [
             units.map((u, i) => (
               <>
                 {i > 0 && (
-                  <span class="font-display text-headline-md text-on-surface-variant/40" aria-hidden="true">
+                  <span class="hidden font-display text-headline-md text-on-surface-variant/40 sm:inline" aria-hidden="true">
                     :
                   </span>
                 )}
-                <div class="flex min-w-[64px] flex-col items-center rounded bg-surface-container-lowest px-space-md py-space-sm">
+                <div class="flex flex-1 flex-col items-center rounded bg-surface-container-lowest px-space-sm py-space-sm sm:min-w-[64px] sm:flex-none sm:px-space-md">
                   <span class="block h-[34px] overflow-hidden">
                     <span
                       class:list={[
