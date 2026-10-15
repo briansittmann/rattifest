@@ -1,0 +1,192 @@
+<!doctype html>
+<!--
+  Fuente de la miniatura para redes (Open Graph, 1200x630).
+  Para regenerar public/og.png ver la sección "Miniatura para redes" en CLAUDE.md.
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --obsidian: #0e0e10;
+        --surface: #1c1b1d;
+        --lime: #caf300;
+        --on-lime: #2a3400;
+        --violet: #a855f7;
+        --text: #ffffff;
+        --muted: #c5c9ac;
+        --border: rgb(255 255 255 / 0.12);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: var(--obsidian);
+      }
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: var(--obsidian);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Foto a la derecha, fundida hacia el negro */
+      .photo {
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: 640px;
+        background: url("../src/assets/img/gallery-warehouse.jpg") center / cover no-repeat;
+        filter: contrast(1.08) saturate(1.1);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+      }
+      .photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgb(14 14 16 / 0.15), rgb(14 14 16 / 0.55));
+      }
+
+      /* Luces ambientales del hero */
+      .glow-lime {
+        position: absolute;
+        top: -220px;
+        left: 80px;
+        width: 640px;
+        height: 420px;
+        border-radius: 50%;
+        background: rgb(202 243 0 / 0.14);
+        filter: blur(120px);
+      }
+      .glow-violet {
+        position: absolute;
+        bottom: -200px;
+        right: 120px;
+        width: 520px;
+        height: 380px;
+        border-radius: 50%;
+        background: rgb(111 0 190 / 0.35);
+        filter: blur(120px);
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 64px 72px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand img {
+        width: 52px;
+        height: 52px;
+      }
+      .brand span {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 28px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--lime);
+        margin-bottom: 20px;
+      }
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 96px;
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        max-width: 760px;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--lime);
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 28px;
+        border-radius: 4px;
+        background: var(--lime);
+        color: var(--on-lime);
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        box-shadow: 0 0 32px rgb(202 243 0 / 0.3);
+      }
+      .formats {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .formats b {
+        color: var(--violet);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="glow-violet"></div>
+      <div class="photo"></div>
+      <div class="glow-lime"></div>
+
+      <div class="content">
+        <div class="brand">
+          <img src="../src/assets/img/logo-mark.png" alt="" />
+          <span>Ratti Fest</span>
+        </div>
+
+        <div>
+          <p class="kicker">Buenos Aires Underground Experience</p>
+          <h1>Donde la noche <em>se vuelve</em> leyenda.</h1>
+        </div>
+
+        <div class="footer">
+          <span class="cta">Conseguir entradas</span>
+          <span class="formats">Pool Party <b>/</b> Warehouse <b>/</b> Rooftop</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

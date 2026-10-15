@@ -34,6 +34,13 @@ No hay linter ni tests. Para verificar: `npm run build` y revisar en el navegado
 - Con `clip-path: inset(100% ...)` el elemento no tiene área visible para el IntersectionObserver: observar el contenedor, no el elemento.
 - Motion escribe `transform` inline: no usar utilidades de `transform` de Tailwind en elementos que también se animan con `y`.
 
+## Miniatura para redes (Open Graph)
+
+- `public/og.jpg` (1200x630) es la imagen que se ve al compartir el link. Se genera a partir de `og/og.html`, que usa los tokens de `DESIGN.md` y las imágenes de `src/assets/img/`.
+- Para regenerarla: abrir `og/og.html` en un navegador headless con viewport 1200x630, esperar a que carguen las fuentes, capturar la pantalla y convertir a JPG (calidad ~86, para que pese menos de 300 KB por WhatsApp).
+- Las meta tags (`og:*`, `twitter:*`, canonical) están en `Layout.astro` y usan `site` de `astro.config.mjs` (`https://rattifest.vercel.app`). Si cambia el dominio, actualizar `site`.
+- La miniatura no menciona fechas a propósito, para no tener que regenerarla en cada evento.
+
 ## Diseño de referencia (Stitch)
 
 `stitch_ratti_fest/` (`code.html`, `DESIGN.md`, `screen.png`) está en `.gitignore`: existe solo en la máquina local. El usuario quiere conservar el diseño tal cual; los cambios visuales se limitan a animaciones y arreglos puntuales.
